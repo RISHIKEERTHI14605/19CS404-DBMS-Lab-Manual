@@ -38,305 +38,178 @@ DROP VIEW view_name;
 
 **Question 1**
 --
-Write a SQL query that retrieve all the columns from the table "Grades", where the grade is equal to the maximum grade achieved in each subject.
-Sample table: GRADES (attributes: student_id, student_name, subject, grade)
+<img width="826" height="605" alt="image" src="https://github.com/user-attachments/assets/302ce3c2-76d6-41a9-8eb7-b60a461d9355" />
+
+
+```
+SELECT *
+FROM ORDERS
+WHERE purch_amt>(
+    SELECT AVG(purch_amt)
+    FROM ORDERS
+    WHERE ord_date="2012-10-10")
+```
+
+**Output:**
+
+<img width="826" height="500" alt="image" src="https://github.com/user-attachments/assets/6b886be3-a201-42ec-ba69-32c72e4167a9" />
+
+**Question 2**
+---
+<img width="826" height="786" alt="image" src="https://github.com/user-attachments/assets/d7a088db-1f1f-48f5-a654-d082d4bbab2b" />
 
 ```
 SELECT *
 FROM GRADES g
-WHERE grade = (
-    SELECT MAX(grade)
+WHERE grade=
+    (SELECT MAX(grade)
     FROM GRADES
-    WHERE subject = g.subject
-);
-
+    WHERE subject=g.subject)
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/d3d3c6be-b5b9-40e7-aed4-091d3c825e63)
-
-
-**Question 2**
----
-Write a SQL query to Identify customers whose city is different from the city of the customer with the highest ID
-
-SAMPLE TABLE: customer
-```
-name             type
----------------  ---------------
-id               INTEGER
-name             TEXT
-city             TEXT
-email            TEXT
-phone            INTEGER
-```
-```
-SELECT *
-FROM customer
-WHERE city <> (
-    SELECT city
-    FROM customer
-    WHERE id = (SELECT MAX(id) FROM customer)
-);
-
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/91ff9e98-1f8d-4a62-877a-5cf34ee18ee4)
-
+<img width="826" height="470" alt="image" src="https://github.com/user-attachments/assets/b2447352-4c6d-4744-b0a4-feeaa3dc74e6" />
 
 **Question 3**
 ---
-Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose salary is LESS than $2500.
+<img width="826" height="778" alt="image" src="https://github.com/user-attachments/assets/da88e840-fd8a-4d8b-91c0-4af8438a4a65" />
 
-Sample table: CUSTOMERS
-```
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
 
-1          Ramesh     32              Ahmedabad     2000
-2          Khilan        25              Delhi                 1500
-3          Kaushik      23              Kota                  2000
-4          Chaitali       25             Mumbai            6500
-5          Hardik        27              Bhopal              8500
-6          Komal         22              Hyderabad       4500
-
-7           Muffy          24              Indore            10000
-
-```
 ```
 SELECT *
-FROM CUSTOMERS
-WHERE SALARY < 2500;
-
+FROM Employee
+WHERE age<(
+    SELECT AVG(age)
+    FROM Employee
+    WHERE income>1000000)
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/5368fd05-45e9-44ce-98b9-755023b20def)
-
+<img width="826" height="461" alt="image" src="https://github.com/user-attachments/assets/98aa6fc5-d8cb-4e66-b174-8e750d537bfd" />
 
 **Question 4**
 ---
-From the following tables write a SQL query to count the number of customers with grades above the average in New York City. Return grade and count.
+<img width="826" height="813" alt="image" src="https://github.com/user-attachments/assets/252e2cae-28ff-4c7f-923d-0f0454a53091" />
 
-customer table
-```
-name         type
------------  ----------
-customer_id  int
-cust_name    text
-city         text
-grade        int
-salesman_id  int
-```
-```
-SELECT grade, COUNT(*)
-FROM customer
-WHERE  grade > (SELECT AVG(grade) FROM customer WHERE city = 'New York')
-GROUP BY grade;
 
+```
+SELECT * 
+FROM CUSTOMERS 
+WHERE ID IN(
+    SELECT ID
+    FROM CUSTOMERS
+    WHERE AGE<30 AND ADDRESS="Delhi")
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/5ee3faa5-16e7-4f66-aa1d-3be574da237b)
-
+<img width="826" height="389" alt="image" src="https://github.com/user-attachments/assets/eb9127d0-2dbe-4a2e-8821-5485d456e451" />
 
 **Question 5**
 ---
-Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose Address as Delhi
+<img width="1577" height="942" alt="image" src="https://github.com/user-attachments/assets/f97c9f9b-71a7-4f99-88b0-ba5977922efa" />
 
-Sample table: CUSTOMERS
+
 ```
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-
-1          Ramesh     32              Ahmedabad     2000
-2          Khilan        25              Delhi                 1500
-3          Kaushik      23              Kota                  2000
-4          Chaitali       25             Mumbai            6500
-5          Hardik        27              Bhopal              8500
-6          Komal         22              Hyderabad       4500
-
-7           Muffy          24              Indore            10000
-```
-```
-SELECT *
-FROM CUSTOMERS
-WHERE ADDRESS = 'Delhi';
-
+SELECT salesman_id,name
+FROM salesman
+WHERE salesman_id IN(
+    SELECT salesman_id
+    FROM customer
+    GROUP BY salesman_id
+    HAVING COUNT(customer_id)>1)
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/80f9f243-907d-4aea-a337-6c50af79ea3f)
-
+<img width="826" height="540" alt="image" src="https://github.com/user-attachments/assets/80e8670a-bfa7-4792-ad65-40c0c9513404" />
 
 **Question 6**
 ---
-From the following tables write a SQL query to find the order values greater than the average order value of 10th October 2012. Return ord_no, purch_amt, ord_date, customer_id, salesman_id.
+<img width="826" height="898" alt="image" src="https://github.com/user-attachments/assets/fda396ff-6e50-46dc-a0db-c3753196ec09" />
 
-Note: date should be yyyy-mm-dd format
 
-ORDERS TABLE
 ```
-name            type
-----------     ----------
-ord_no          int
-purch_amt    real
-ord_date       text
-customer_id  int
-salesman_id  int
-```
-```
-SELECT ord_no, purch_amt, ord_date, customer_id, salesman_id
-FROM ORDERS
-WHERE purch_amt > (
-    SELECT AVG(purch_amt)
-    FROM ORDERS
-    WHERE ord_date = '2012-10-10'
-);
-
+SELECT commission
+FROM salesman
+WHERE salesman_id IN(
+    SELECT salesman_id
+    FROM customer
+    WHERE city="Paris")
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/c430c51e-9b78-4f93-8466-421008a9ef22)
-
+<img width="826" height="350" alt="image" src="https://github.com/user-attachments/assets/2bc4937e-ec1f-4d68-ae60-1226d0a2d9db" />
 
 **Question 7**
 ---
-From the following tables write a SQL query to find all orders generated by New York-based salespeople. Return ord_no, purch_amt, ord_date, customer_id, salesman_id.
+<img width="1448" height="708" alt="image" src="https://github.com/user-attachments/assets/0a92afdc-7cfe-4d07-94c4-610ae4f3768f" />
 
-salesman table
-```
-name             type
----------------  ---------------
-salesman_id      numeric(5)
-name                 varchar(30)
-city                    varchar(15)
-commission       decimal(5,2)
-```
-orders table
-```
-name             type
----------------  --------
-order_no         int
-purch_amt        real
-order_date       text
-customer_id      int
-salesman_id      int
-```
-```
-SELECT o.ord_no, o.purch_amt, o.ord_date, o.customer_id, o.salesman_id
-FROM orders o
-JOIN salesman s ON o.salesman_id = s.salesman_id
-WHERE s.city = 'New York';
 
+```
+SELECT name,city
+FROM customer
+WHERE city in(
+    SELECT city
+    FROM customer
+    WHERE id IN(3,7))
 ```
 
 **Output:**
-![image](https://github.com/user-attachments/assets/2fc61d66-a2cb-4187-aae4-096d234335ec)
+
+<img width="826" height="513" alt="image" src="https://github.com/user-attachments/assets/db26ae70-f5f5-4640-a91f-5b167ee1fee9" />
 
 **Question 8**
 ---
-From the following tables, write a SQL query to find those salespeople who earned the maximum commission. Return ord_no, purch_amt, ord_date, and salesman_id.
+<img width="826" height="979" alt="image" src="https://github.com/user-attachments/assets/f96cf1ed-83bb-47e1-9fc6-92cdc6635c88" />
 
-salesman table
-```
-name             type
----------------  ---------------
-salesman_id      numeric(5)
-name                 varchar(30)
-city                    varchar(15)
-commission       decimal(5,2)
-```
-orders table
-```
-name             type
----------------  --------
-order_no         int
-purch_amt        real
-order_date       text
-customer_id      int
-salesman_id      int
-```
-```
-SELECT o.ord_no, o.purch_amt, o.ord_date, o.salesman_id
-FROM orders o
-JOIN salesman s ON o.salesman_id = s.salesman_id
-WHERE s.commission = (
-    SELECT MAX(commission)
-    FROM salesman
-);
 
+```
+SELECT * FROM CUSTOMERS WHERE AGE<30
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/d34c06f4-4485-45aa-a1df-f7d9401eec2b)
-
+<img width="826" height="678" alt="image" src="https://github.com/user-attachments/assets/00ded20d-bf9a-4e5d-8319-5e8958637d12" />
 
 **Question 9**
 ---
-From the following tables, write a SQL query to find all the orders generated in New York city. Return ord_no, purch_amt, ord_date, customer_id and salesman_id.
+<img width="826" height="971" alt="image" src="https://github.com/user-attachments/assets/47012d85-2752-4dd8-93c6-3aac5eb1e97e" />
 
-SALESMAN TABLE
 ```
-name               type
------------        ----------
-salesman_id  numeric(5)
-name             varchar(30)
-city                 varchar(15)
-commission   decimal(5,2)
-```
-ORDERS TABLE
-```
-name            type
-----------      ----------
-ord_no          int
-purch_amt    real
-ord_date       text
-customer_id  int
-salesman_id  int
-```
-```
-SELECT o.ord_no, o.purch_amt, o.ord_date, o.customer_id, o.salesman_id
-FROM orders o
-JOIN salesman s ON o.salesman_id = s.salesman_id
-WHERE s.city = 'New York';
-
+SELECT * 
+FROM customer
+WHERE customer_id=(
+    SELECT salesman_id-2001
+    FROM salesman
+    WHERE name="Mc Lyon"
+)
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/52f55304-0cfd-4b75-bdb5-f6fe19e13f0b)
+<img width="826" height="319" alt="image" src="https://github.com/user-attachments/assets/e70af652-bb40-44f9-803d-91363697dd94" />
 
 **Question 10**
 ---
-Write a SQL query that retrieves the all the columns from the Table Grades, where the grade is equal to the minimum grade achieved in each subject.
-
-Sample table: GRADES (attributes: student_id, student_name, subject, grade)
+<img width="826" height="473" alt="image" src="https://github.com/user-attachments/assets/c83376b2-24fe-4284-9d30-5fce5182587b" />
 
 
 ```
-SELECT student_id, student_name, subject, grade
-FROM Grades g
-WHERE grade = (
-    SELECT MIN(grade)
-    FROM Grades
-    WHERE subject = g.subject
-);
-
+SELECT student_name,grade
+FROM GRADES g
+WHERE grade=(
+            SELECT MIN(grade)
+            FROM GRADES
+            WHERE subject=g.subject)
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/d16e38c0-ec16-448e-b45b-fbb95ba9cba7)
-
+<img width="826" height="489" alt="image" src="https://github.com/user-attachments/assets/3ffc2656-19b3-44bc-aa20-7dee3ccddf74" />
 
 
 ## RESULT
