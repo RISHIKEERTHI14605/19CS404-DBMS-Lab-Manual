@@ -38,292 +38,177 @@ HAVING condition;
 
 **Question 1**
 --
-What is the average dosage prescribed for each medication?
+<img width="826" height="609" alt="image" src="https://github.com/user-attachments/assets/7718f70a-6163-4bce-b289-e49af2c26953" />
 
-Sample tablePrescriptions Table
-```
-Medication     AvgDosage
--------------  ----------
-Ciprofloxacin  500.0
-Doxorubicin    60.0
-Ibuprofen      400.0
-Levothyroxine  50.0
-Lisinopril     10.0
-MMR            0.5
-Pending        0.0
-Prenatal vita  1.0
-Sertraline     50.0
-Topiramate     25.0
-```
 
 ```
-SELECT
-  Medication,
-  AVG(Dosage) AS AvgDosage
-FROM
-  Prescriptions
-GROUP BY
-  Medication;
-
+SELECT COUNT(*) AS COUNT
+FROM customer
 ```
 
 **Output:**
 
+<img width="826" height="306" alt="image" src="https://github.com/user-attachments/assets/2417b626-cad6-45db-a37e-20080c6de47f" />
 
-![Screenshot 2025-04-29 171159](https://github.com/user-attachments/assets/cbf06455-04ba-4d64-899c-19b9f6285e48)
 
 **Question 2**
 ---
-How many patients are there in each city?
-```
-Sample table: Patients Table
+<img width="826" height="568" alt="image" src="https://github.com/user-attachments/assets/b50849a7-8074-422d-b248-6fd00685d089" />
 
-Address     TotalPatients
-----------  -------------
-Berlin      3
-Chicago     4
-Mexico      3
+
 ```
-```
-select Address,count(*)
-as TotalPatients
-from Patients
-group by Address
+SELECT
+    name,
+    email,
+    MIN(LENGTH(email)) AS min_email_length
+FROM customer
 ```
 
 **Output:**
 
-
-![Screenshot 2025-04-29 171804](https://github.com/user-attachments/assets/8d4957fe-fb4f-4c02-a28e-1f6c65c3430c)
-
+<img width="826" height="298" alt="image" src="https://github.com/user-attachments/assets/dacae34c-f39d-425c-a697-a06cd393f8fc" />
 
 
 **Question 3**
 ---
-Write a SQL Query to find how many medications are prescribed for each patient?
+<img width="826" height="565" alt="image" src="https://github.com/user-attachments/assets/bad35cfe-0fd4-4a6e-99bd-57040fad46ee" />
 
-Sample table:MedicalRecords Table
-```
-PatientID   AvgMedications
-----------  --------------
-4           5
-6           1
-7           1
-8           3
 
 ```
-```
-SELECT PatientID,COUNT(*) AS 
-AvgMedications
-FROM MedicalRecords
-GROUP BY PatientID;
+SELECT COUNT(*) AS employees_count FROM employee
 ```
 
 **Output:**
 
-
-![Screenshot 2025-04-29 172124](https://github.com/user-attachments/assets/03cd9d50-06b5-4812-9c53-729d7557944f)
+<img width="826" height="301" alt="image" src="https://github.com/user-attachments/assets/d2422b8f-dee5-4547-b480-50f43d2391e2" />
 
 
 **Question 4**
 ---
-Write a SQL query to find the maximum purchase amount.
+<img width="826" height="740" alt="image" src="https://github.com/user-attachments/assets/ab1a7d73-7f36-47b3-ad97-9a4d0e0df97e" />
 
-Sample table: orders
+
 ```
-ord_no      purch_amt   ord_date    customer_id  salesman_id
-
-----------  ----------  ----------  -----------  -----------
-
-70001       150.5       2012-10-05  3005         5002
-
-70009       270.65      2012-09-10  3001         5005
-
-70002       65.26       2012-10-05  3002         5001
-```
-```
-SELECT
-  MAX(purch_amt) AS MAXIMUM
-FROM
-  orders;
+SELECT 
+    strftime('%H',AppointmentDateTime) AS HourOfDay,
+    COUNT(*) AS TotalAppointments
+FROM Appointments
+GROUP BY HourOfDay
+ORDER BY HourOfDay
 ```
 
 **Output:**
 
-
-![Screenshot 2025-04-29 172220](https://github.com/user-attachments/assets/3b0552ba-cb0f-47b2-a14f-4f41e3f13b8a)
-
+<img width="826" height="574" alt="image" src="https://github.com/user-attachments/assets/abf03ce2-1c09-4986-8f0f-6cfbd935329e" />
 
 
 **Question 5**
 ---
-Write a SQL query to find the total income of employees aged 40 or above.
+<img width="1238" height="667" alt="image" src="https://github.com/user-attachments/assets/3a6f580b-9c86-489e-bb51-bbd21993f3eb" />
 
-Table: employee
-```
-name        type
-----------  ----------
-id          INTEGER
-name        TEXT
-age         INTEGER
-city        TEXT
-income      INTEGER
 
-```
 ```
 SELECT
-  SUM(income) AS total_income
-FROM
-  employee
-WHERE
-  age >= 40;
+    PatientID,
+    COUNT(RecordID) AS TotalRecords
+FROM MedicalRecords
+GROUP BY PatientID
 ```
 
 **Output:**
 
-
-![Screenshot 2025-04-29 172310](https://github.com/user-attachments/assets/7dd0627c-5b47-45cd-9da2-b4c8b2308c33)
+<img width="826" height="729" alt="image" src="https://github.com/user-attachments/assets/16543f43-43af-46a4-a4e3-bf9c350ada12" />
 
 
 **Question 6**
 ---
-Write a SQL query to find the number of employees whose age is greater than 32.
+<img width="826" height="649" alt="image" src="https://github.com/user-attachments/assets/989ea049-b1ec-4bb2-a569-8066d4a40b35" />
 
-Sample table: employee
 
 ```
 SELECT
-  COUNT(*) AS COUNT
-FROM
-  employee
-WHERE
-  age > 32;
+    DoctorID,
+    COUNT(AppointmentID) AS TotalAppointments
+FROM Appointments
+GROUP BY DoctorID
 ```
 
 **Output:**
 
+<img width="826" height="705" alt="image" src="https://github.com/user-attachments/assets/602fd688-e405-4b6b-b9fe-e97c357fa5b4" />
 
-![Screenshot 2025-04-29 172421](https://github.com/user-attachments/assets/facbdbb0-4fdf-4680-a2f2-05496c32ebde)
 
 **Question 7**
 ---
-Write a SQL query to find the average length of names for people living in Chennai?
+<img width="826" height="565" alt="image" src="https://github.com/user-attachments/assets/d41acef6-7da4-44a3-8f5e-cfd6014d8d82" />
 
-Table: customer
+
 ```
-name        type
-----------  ----------
-id          INTEGER
-name        TEXT   
-city        TEXT
-email       TEXT
-phone       INTEGER
-```
-```
-SELECT
-  AVG(LENGTH(name)) AS avg_name_length
-FROM
-  customer
-WHERE
-  city = 'Chennai';
+SELECT 
+    jdate,
+    AVG(workhour)
+FROM employee1
+GROUP BY jdate
+HAVING AVG(workhour)<10
 ```
 
 **Output:**
 
-
-![Screenshot 2025-04-29 172506](https://github.com/user-attachments/assets/d162dc9e-2f89-4e8d-ace5-ffa4b385b7bb)
-
+<img width="826" height="331" alt="image" src="https://github.com/user-attachments/assets/b2000ccc-b8a9-4f8c-b31f-941e3ca4f7bc" />
 
 **Question 8**
 ---
-Write the SQL query that accomplishes the grouping of data by joining date (jdate), calculates the maximum work hours for each date, and excludes dates where the maximum work hour is not greater than 12.
+<img width="826" height="624" alt="image" src="https://github.com/user-attachments/assets/ed6cb4b4-72fa-4816-a382-a59a303af571" />
 
-Sample table: employee1
+
 ```
-jdate       MAX(workhour)
-----------  -------------
-2004.0      15
-2006.0      15
-```
-```
-SELECT
-  jdate,
-  MAX(workhour) AS "MAX(workhour)"
-FROM
-  employee1
-GROUP BY
-  jdate
-HAVING
-  MAX(workhour) > 12;
+SELECT 
+    jdate,
+    MIN(workhour)
+FROM employee1
+GROUP BY jdate
+HAVING MIN(workhour)<10
 ```
 
 **Output:**
 
-
-![Screenshot 2025-04-29 172603](https://github.com/user-attachments/assets/4f18be9a-1667-4bc1-825b-115d62e6f1c9)
-
+<img width="826" height="453" alt="image" src="https://github.com/user-attachments/assets/cd441967-5140-4b76-a888-c81c125287d8" />
 
 **Question 9**
 ---
-Write the SQL query that achieves the grouping of data by occupation, calculates the total work hours for each occupation, and excludes occupations where the total work hour sum is not greater than 20.
+<img width="826" height="581" alt="image" src="https://github.com/user-attachments/assets/15842de9-6df0-4378-aac4-1ee1bf92b911" />
 
-Sample table: employee1
-```
-occupation  SUM(workhour)
-----------  -------------
-Business    30
-Doctor      30
-Engineer    24
-Teacher     27
-```
+
 ```
 SELECT
-  occupation,
-  SUM(workhour) AS "SUM(workhour)"
-FROM
-  employee1
-GROUP BY
-  occupation
-HAVING
-  SUM(workhour) > 20;
+    (age/5)*5 AS age_group,
+    SUM(salary)
+FROM customer1
+GROUP BY age_group
+HAVING SUM(salary)>5000
 ```
 
 **Output:**
 
-
-![Screenshot 2025-04-29 172703](https://github.com/user-attachments/assets/ed11db98-a58b-4cb2-934b-49a26899d26b)
-
+<img width="826" height="355" alt="image" src="https://github.com/user-attachments/assets/1055627d-a9a4-4a78-9cc5-6c572a56188d" />
 
 **Question 10**
 ---
-Write the SQL query that achieves the grouping of data by occupation, calculates the average work hours for each occupation, and includes only those occupations where the average work hour falls between 10 and 12.
+<img width="826" height="578" alt="image" src="https://github.com/user-attachments/assets/f2b9198b-8c8c-42c0-9bfe-6ace39fba830" />
 
-Sample table: employee1
 
-```
-occupation  AVG(workhour)
-----------  -------------
-Business    10.0
-Engineer    12.0
-```
 ```
 SELECT
-  occupation,
-  AVG(workhour) AS "AVG(workhour)"
-FROM
-  employee1
-GROUP BY
-  occupation
-HAVING
-  AVG(workhour) BETWEEN 10 AND 12;
+    category_id,
+    SUM(price) AS Total_Cost
+FROM products
+GROUP BY category_id
+HAVING SUM(price)>50
 ```
 
 **Output:**
 
-
-![Screenshot 2025-04-29 172754](https://github.com/user-attachments/assets/2feda0d6-0e59-4af8-a0b6-15ea0c411c22)
-
-
+<img width="826" height="327" alt="image" src="https://github.com/user-attachments/assets/40ca683e-7034-4963-9ea7-cf271e32c775" />
 
 
 ## RESULT
